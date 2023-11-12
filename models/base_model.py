@@ -1,9 +1,17 @@
+#!/usr/bin/python3
 import uuid
 import datetime
 """
 This module contains the classes for a simple database.
 It is used to store data in memory and retrieve it later.
 """
+
+
+def setter(self, key, value):
+    if not key.startswith("_"):
+        if key == "created_at" or key == "updated_at":
+            value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+        setattr(self, key, value)
 
 
 class BaseModel:
@@ -15,10 +23,7 @@ class BaseModel:
         """Constructor for the base model."""
         if len(kwargs.items()) != 0:
             for key, value in kwargs.items():
-                if not key.startswith("_"):
-                    if key == "created_at" or key == "updated_at":
-                        value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                    setattr(self, key, value)
+                setter(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
