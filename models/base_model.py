@@ -8,6 +8,7 @@ It is used to store data in memory and retrieve it later.
 
 
 def setter(self, key, value):
+    """This method sets an attribute of the object."""
     if not key.startswith("_"):
         if key == "created_at" or key == "updated_at":
             value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
