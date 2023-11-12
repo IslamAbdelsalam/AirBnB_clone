@@ -7,11 +7,18 @@ class BaseModel:
     """
     This is the base model for all other models. It provides common functionality to all models.
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Constructor for the base model."""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if len(kwargs.items()) != 0:
+            for key, value in kwargs.items():
+                if not key.startswith("_"):
+                    if key == "created_at" or key == "updated_at":
+                        value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
     
     def __str__(self):
         """Returns a string representation of this object."""
