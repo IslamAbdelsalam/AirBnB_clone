@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import uuid
+from uuid import uuid4
 import datetime
 from models import storage
 """
@@ -23,11 +23,14 @@ class BaseModel:
     """
     def __init__(self, *args, **kwargs):
         """Constructor for the base model."""
+        self.id = str(uuid4())
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
         if len(kwargs.items()) != 0:
             for key, value in kwargs.items():
                 setter(self, key, value)
         else:
-            self.id = str(uuid.uuid4())
+            self.id = str(uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
             storage.new(self)
