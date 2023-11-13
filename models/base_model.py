@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import uuid
 import datetime
+from models import storage
 """
 This module contains the classes for a simple database.
 It is used to store data in memory and retrieve it later.
@@ -29,6 +30,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """Returns a string representation of this object."""
@@ -37,6 +39,7 @@ class BaseModel:
     def save(self):
         """Saves an instance to the database."""
         self.updated_at = datetime.datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Converts this object into dictionary that can serialized as JSON."""
