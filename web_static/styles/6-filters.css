@@ -32,7 +32,6 @@ section.filters {
 	padding: 10px 25px;
 	box-sizing: border-box;
 	position: relative;
-	transition: 5s;
 }
 .filters .locations{
 	border-right: 1px solid #DDDDDD;
