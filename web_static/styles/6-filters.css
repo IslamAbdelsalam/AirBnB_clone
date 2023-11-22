@@ -32,6 +32,7 @@ section.filters {
 	padding: 10px 25px;
 	box-sizing: border-box;
 	position: relative;
+	transition: 5s;
 }
 .filters .locations{
 	border-right: 1px solid #DDDDDD;
@@ -48,18 +49,40 @@ section.filters {
 	font-weight: 400;
 	font-size: 14px;
 }
-.locations ul,
-.amenities ul{
+.locations ul.popover,
+.amenities ul.popover{
 	background-color: #FAFAFA;
 	border: 1px solid #DDDDDD;
 	width: 100%;
+	border-radius: 4px;
 	position: absolute;
 	left: 0;
-	padding: 10px 25px;
-	top: 55px;
-
+	padding: 10px 15px;
+	top: 100%;
+	margin: 0;
+	display: none;
 }
-.locations:hover ul,
-.amenities:hover ul{
+
+.amenities ul.popover li{
+	margin: 5px 0;
+	list-style: none;
+}
+.locations:hover ul.popover,
+.amenities:hover ul.popover{
 	display: block;
+}
+.locations ul.popover ul{
+	list-style: none;
+	padding: 0;
+}
+.locations ul.popover ul h2{
+	font-size: 16px;
+	margin: 15px 0 5px;
+}
+.locations ul.popover ul:first-child h2{
+	margin: 0 0 5px;
+}
+
+.locations ul.popover ul li{
+	margin-left: 15px;
 }
