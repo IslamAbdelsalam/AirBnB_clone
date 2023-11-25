@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 import cmd
 """
+This is a simple command line interface for the TinyDB database.
 """
+
+
 class HBNBCommand(cmd.Cmd):
+    """
+    This class defines the command-line interface to interact with the TinyDB database.
+    """
     def do_quit(self, arg):
         raise SystemExit
 
