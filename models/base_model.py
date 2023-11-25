@@ -2,19 +2,6 @@
 from uuid import uuid4
 import datetime
 from models import storage
-"""
-This module contains the classes for a simple database.
-It is used to store data in memory and retrieve it later.
-"""
-
-
-def setter(self, key, value):
-    """This method sets an attribute of the object."""
-    if not key.startswith("_"):
-        if key == "created_at" or key == "updated_at":
-            value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-        setattr(self, key, value)
-
 
 class BaseModel:
     """
@@ -24,15 +11,15 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Constructor for the base model."""
         self.id = str(uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         if len(kwargs.items()) != 0:
             for key, value in kwargs.items():
-                setter(self, key, value)
+                if key != '__class__':
+                    if key == 'created_at' or key == 'updated_at':
+                        value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, key, value)
         else:
-            self.id = str(uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
             storage.new(self)
 
     def __str__(self):
@@ -41,7 +28,7 @@ class BaseModel:
 
     def save(self):
         """Saves an instance to the database."""
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
